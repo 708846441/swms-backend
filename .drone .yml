@@ -1,0 +1,14 @@
+workspace:
+  base: /back
+  path: src/github.com/derFischer/swms-backend
+pipeline:
+  build:
+    image: maven:3.6.0-jdk-8-alpine
+    commands:
+      - mvn install
+  publish:
+    image: plugins/docker
+    repo: derFischer/swms-backend
+    tags: ["latest", "v2"]
+    secrets: [ docker_username, docker_password ]
+    dockerfile: Dockerfile
